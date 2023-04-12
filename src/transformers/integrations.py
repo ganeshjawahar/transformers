@@ -976,7 +976,7 @@ class MLflowCallback(TrainerCallback):
                 if self._experiment_name:
                     # Use of set_experiment() ensure that Experiment is created if not exists
                     self._ml_flow.set_experiment(self._experiment_name)
-                self._ml_flow.start_run(run_name=args.run_name, nested=self._nested_run)
+                nested = True if self._ml_flow.active_run is not None else False; self._ml_flow.start_run(run_name=args.run_name, nested=nested);
                 logger.debug(f"MLflow run started with run_id={self._ml_flow.active_run().info.run_id}")
                 self._auto_end_run = True
             combined_dict = args.to_dict()
